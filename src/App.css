@@ -72,17 +72,81 @@ button {
   color: #fca5a5;
 }
 
-.pdf-frame {
+/* Color picker */
+.color-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.color-picker-label {
+  font-size: 0.9rem;
+  margin-right: 0.25rem;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.color-swatch:hover {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.color-swatch.selected {
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+/* PDF viewer */
+.pdf-viewer-container {
   margin-top: 0.75rem;
   width: 100%;
-  height: 600px;
+  max-height: 700px;
+  overflow-y: auto;
   border-radius: 12px;
-  border: none;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  background: #525659;
+}
+
+.pdf-page-wrapper {
+  position: relative;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.pdf-page-wrapper + .pdf-page-wrapper {
+  border-top: 4px solid #3a3a3a;
+}
+
+.highlight-overlay {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  border-radius: 2px;
+  mix-blend-mode: multiply;
+}
+
+/* react-pdf overrides */
+.react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.react-pdf__Page {
+  margin: 8px 0;
 }
 
 @media (max-width: 768px) {
-  .pdf-frame {
-    height: 400px;
+  .pdf-viewer-container {
+    max-height: 500px;
   }
 }
