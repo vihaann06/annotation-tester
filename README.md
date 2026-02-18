@@ -1,73 +1,77 @@
-# React + TypeScript + Vite
+# Hypothesis PDF Highlight Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A browser-based tool for viewing PDFs and creating/displaying highlight annotations via the [Hypothesis](https://web.hypothes.is/) API. Built with React, TypeScript, Vite, and [react-pdf](https://github.com/wojtekmaj/react-pdf).
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Node.js](https://nodejs.org/) v18+
+- A [Hypothesis](https://hypothes.is/) account and API token
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Clone the repo**
 
-## Expanding the ESLint configuration
+   ```sh
+   git clone https://github.com/<your-username>/annotation-tester.git
+   cd annotation-tester
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2. **Install dependencies**
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+   ```sh
+   npm install
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+3. **Set up environment variables**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+   Create a `.env` file in the project root:
+
+   ```
+   VITE_HYPOTHESIS_API_TOKEN=<your_hypothesis_api_token>
+   ```
+
+   You can generate a token at https://hypothes.is/settings/developer.
+
+4. **Start the dev server**
+
+   ```sh
+   npm run dev
+   ```
+
+   The app will be available at `http://localhost:5173`.
+
+## Project Structure
+
+```
+src/
+  main.tsx              # App entry point
+  App.tsx               # Root component — URL input, highlight creation, state management
+  App.css               # App styles
+  components/
+    PDFViewer.tsx        # PDF rendering and highlight overlay logic
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Usage
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Paste a publicly accessible, CORS-friendly PDF URL (e.g. from arxiv.org) and click **Load PDF**.
+2. Type the exact text you want to highlight, pick a color, and click **Create Hypothesis highlight**.
+3. The highlight appears on the PDF immediately and is persisted to Hypothesis.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Available Scripts
+
+| Command           | Description                    |
+| ----------------- | ------------------------------ |
+| `npm run dev`     | Start the Vite dev server      |
+| `npm run build`   | Type-check and build for prod  |
+| `npm run preview` | Preview the production build   |
+| `npm run lint`    | Run ESLint                     |
+
+## Contributing
+
+1. Fork the repo and create a feature branch from `main`.
+2. Make your changes and verify they pass linting and type-checking:
+   ```sh
+   npm run lint
+   npm run build
+   ```
+3. Open a pull request against `main`.
